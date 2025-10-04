@@ -1,12 +1,32 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Dashboard } from "@/components/Dashboard";
+import { HabitTracker } from "@/components/HabitTracker";
+import { FocusTimer } from "@/components/FocusTimer";
+import { AppBlocker } from "@/components/AppBlocker";
+import { Navigation } from "@/components/Navigation";
 
 const Index = () => {
+  const [currentPage, setCurrentPage] = useState("dashboard");
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case "dashboard":
+        return <Dashboard />;
+      case "habits":
+        return <HabitTracker />;
+      case "timer":
+        return <FocusTimer />;
+      case "blocker":
+        return <AppBlocker />;
+      default:
+        return <Dashboard />;
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="pb-20">
+      {renderPage()}
+      <Navigation currentPage={currentPage} onNavigate={setCurrentPage} />
     </div>
   );
 };
